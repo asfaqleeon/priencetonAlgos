@@ -101,6 +101,18 @@ class D implements Comparable<D> {
         }
     }
     
+    public static void selectionSort(Comparable[] a){
+        for(int i=0;i<a.length-1;i++){
+            int min=i;
+            for(int j=i+1;j<a.length;j++){
+                if(less(a[j], a[min])){
+                    min=j;
+                }
+            }
+            exch(a, i, min);
+        }
+    }
+    
 }
 
 public class SortsTest {
@@ -129,7 +141,7 @@ public class SortsTest {
             System.out.println(a.get(i).getT());
         }*/
         
-        D[] d = new D[3];
+        /*D[] d = new D[3];
         d[0] = new D("z");
         d[1] = new D("x");
         d[2] = new D("c");
@@ -137,6 +149,20 @@ public class SortsTest {
         D.testSort(d);
         
         for (int i = 0; i < 3; i++) {
+            System.out.println(d[i].getA());
+        }*/
+        
+        D[] d = new D[6];
+        d[0] = new D("4");
+        d[1] = new D("3");
+        d[2] = new D("7");
+        d[3] = new D("6");
+        d[4] = new D("5");
+        d[5] = new D("1");
+        
+        D.selectionSort(d);
+        
+        for (int i = 0; i < 6; i++) {
             System.out.println(d[i].getA());
         }
     }
