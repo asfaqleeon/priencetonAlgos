@@ -8,6 +8,7 @@ package tests;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -93,6 +94,12 @@ class D implements Comparable<D> {
         a[j] = swap;
     }
     
+    private static void exch(Object[] a,int i,int j){
+        Object swap = a[i];
+        a[i] = a[j];
+        a[j] = swap;
+    }
+    
     public static void testSort(Comparable[] a){
         for (int i = 1; i < a.length; i++) {
             if(less(a[i], a[i-1])){
@@ -110,6 +117,42 @@ class D implements Comparable<D> {
                 }
             }
             exch(a, i, min);
+        }
+    }
+    
+    public static void insertionSort(Comparable[] a){
+        for (int i=0; i<a.length; i++) {
+            for (int j=i; j>0; j--) {
+                if(less(a[j], a[j-1])){
+                    exch(a, j, j-1);
+                }else break;
+            }
+        }
+    }
+    
+    public static void shellSort(Comparable[] a){
+        int n=a.length;
+        int h=1;
+        while(h<n/3){
+            h=3*h+1;
+        }
+        
+        while(h>=1){
+            for (int i=h; i<n; i++) {
+                for (int j=i; j>=h && less(a[j], a[j-h]); j-=h) {
+                    exch(a, j, j-h);
+                }
+            }
+            h=h/3;
+        }
+    }
+    
+    public static void shuffle(Object[] a){
+        int n=a.length;
+        for (int i = 0; i < n; i++) {
+            Random rand = new Random();
+            int r = rand.nextInt(i+1);
+            exch(a, i, r);
         }
     }
     
@@ -160,10 +203,24 @@ public class SortsTest {
         d[4] = new D("5");
         d[5] = new D("1");
         
-        D.selectionSort(d);
+        //D.selectionSort(d);
+        //D.insertionSort(d);
+        //D.shellSort(d);
         
-        for (int i = 0; i < 6; i++) {
+        /*for (int i = 0; i < 6; i++) {
             System.out.println(d[i].getA());
+        }*/
+        Object[] o = new Object[5];
+        o[0] = 1;
+        o[1] = 2;
+        o[2] = 3;
+        o[3] = 4;
+        o[4] = 5;
+        
+        D.shuffle(o);
+        
+        for (int i = 0; i < 5; i++) {
+            System.out.println(o[i]);
         }
     }
 }
